@@ -1,0 +1,78 @@
+<html>
+<meta charset="UTF-8">
+	<head>
+		<script type="text/javascript">
+			function show() {
+				//切换添加表单
+				var display = document.getElementById("add");
+				if(display.style.display == "block") {
+					display.style.display = "none";
+				} else {
+					display.style.display = "block";
+				}
+
+			}
+
+			function add() {
+				var mytab = document.getElementById("table");
+				//获取用户信息
+				var no = parseInt(document.getElementById("index").value);
+				var name = document.getElementById("name").value;
+				var iname = document.getElementById("iname").value;
+
+				//插入表格
+				var tabRow;
+				//要插入的行
+				tabRow = mytab.insertRow(mytab.rows.length);
+
+				//插入行的列
+				tabRow.insertCell(0).innerHTML = no;
+				tabRow.insertCell(1).innerHTML = name;
+				tabRow.insertCell(2).innerHTML = iname;
+				tabRow.insertCell(3).innerHTML = "<a href='#' onclick=del(" +
+					no + ")>删除</a>||<a onclick=alter(" + no + ") href='#'>修改</a>";
+			}
+
+			function del(no) {
+				var mytab = document.getElementById("table");
+
+				for(var i = 1; i < mytab.rows.length; i++) { //遍历每一行取出编号
+					var num = parseInt(mytab.rows[i].cells[0].innerText);
+					if(num == no) { //如果遍历的编号等于输入的编号，就删除当前行
+						mytab.deleteRow(i);
+					}
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<table id="table" border="1" style="align:center;width:300px;">
+			<tr align="center">
+				<td>编号</td>
+				<td>名字</td>
+				<td>外号</td>
+				<td>操作</td>
+			</tr>
+		</table>
+		<button onclick="show()">添加/隐藏</button>
+
+		<table id="add" style="display:none">
+			<caption style="font-size:26px;">添加英雄人物</caption>
+			<tr>
+				<td>编号:<input type="text" id="index" name="index" /></td>
+			</tr>
+			<tr>
+				<td>姓名:<input type="text" id="name" name="name" /></td>
+			</tr>
+			<tr>
+				<td>外号:<input type="text" id="iname" name="iname" /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="添加英雄" onclick="add()" /></td>
+			</tr>
+		</table>
+
+	</body>
+
+</html>
